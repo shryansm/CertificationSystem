@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Certification System</title>
+</head>
+
+<body>
+	<h1 th:text="${course.name}"></h1>
+	<p th:text="${'Cost- Rs.' + course.cost}"></p>
+	<p th:if="${#strings.toString(user.role)} == 'ADMIN'">
+		<p th:text="${'Created On - ' + course.createdOn}"></p>
+		<p th:text="${'Modified On - ' + course.modifiedOn}"></p>
+		<a th:href="${'/' + user.id + '/course/' + course.id + '/update/'}">Update Results</a>
+	</p>
+	<p th:if="${#strings.toString(user.role)} == 'STUDENT'">
+		<p th:if="${registration != null}">
+			<p th:text="${'Status- ' + registration.status}"></p>
+			<p th:if="${#strings.toString(registration.status)} == 'PASS'"><a th:href="${'/' + user.id + '/course/' + course.id + '/certificate'}">Download Certificate</a></p>
+		</p>
+		<a  th:if="${registration == null}" th:href="${'/' + user.id + '/course/' + course.id + '/apply/'}">Apply</a>
+	</p>
+</body>
+
+</html>
